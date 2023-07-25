@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+import sequelize from 'sequelize';
 require('dotenv').config();
 
 const sequelize = new Sequelize(
@@ -8,7 +8,11 @@ const sequelize = new Sequelize(
   {
     host: '127.0.0.1',
     dialect: 'mysql',
-    port: 3001
+    port: 3306,
+    dialectOptions: {
+      decimalNumbers: true,
+      // socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+    }
   }
 );
 
