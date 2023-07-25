@@ -1,8 +1,7 @@
-const express = require('express');
+import express from 'express';
 const mysql = require('mysql2');
 const sequelize = require('./config/connection');
-import inquirer from 'inquirer'; 
-import { mainMenu } from './routes/menu/menu';
+const { mainMenu } = require('./routes/menu/menu');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -10,14 +9,14 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'CarlosACF36286269.',
-  database: 'employees_info'
-},
-console.log(`Connected to the employees database.`)
-);
+// const db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'CarlosACF36286269.',
+//   database: 'employees_info'
+// },
+// console.log(`Connected to the employees database.`)
+// );
 
 db.connect((err) => {
   if (err) {

@@ -1,4 +1,4 @@
-const inquirer = require("inquirer");
+import inquirer from 'inquirer';
 const { viewDepartmentsMenu, addDptMenu } = require("./routes/department.js");
 const { viewAllRolesMenu, addRoleMenu } = require("./routes/role.js");
 const {
@@ -6,10 +6,6 @@ const {
   addEmployeeMenu,
   updateEmployeeRoleMenu,
 } = require("./routes/employee.js");
-
-
-exports.mainMenu = mainMenu;
-
 
 inquirer
   .prompt(
@@ -77,3 +73,5 @@ inquirer
     console.clear();
     console.log("Shutting down... hit ctrl + c and use 'npm start' to reboot");
   }
+  
+  exports.mainMenu = mainMenu;
