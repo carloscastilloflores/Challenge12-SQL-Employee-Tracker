@@ -13,13 +13,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // const db = mysql.createConnection({
-//   host: '127.0.0.1',
+//   host: '',
 //   user: 'root',
 //   password: 'CarlosACF36286269.',
 //   database: 'employees_info'
 // },
 // console.log(`Connected to the employees database.`)
 // );
+
+const db = mysql.createConnection({
+  host: '127.0.0.1',
+  user: 'root',
+  password: process.env.DB_PASSWORD,
+  database: 'employees'
+},
+console.log(`Connected to the employees database.`)
+);
 
 db.connect((err) => {
   if (err) {

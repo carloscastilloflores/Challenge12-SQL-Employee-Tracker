@@ -1,11 +1,10 @@
-import Dpt from './department.js'; 
+import { Dpt } from '../dpt.js';
 import inquirer from 'inquirer'; 
 import menu from './menu.js'
 
-function viewDepartmentMenu () {
+export function viewDepartmentsMenu () {
     let viewDepartmentMenu = new Dpt(); 
-    department 
-    .getAll()
+    Dpt.getAll()
     .then ((rows) => {
         console.log(`
         =================
@@ -19,8 +18,7 @@ function viewDepartmentMenu () {
     });
 }
 
-
-function manageDptMenu () {
+export function manageDptMenu () {
     inquirer
         .prompt([
             {
@@ -32,7 +30,7 @@ function manageDptMenu () {
         ])
         .then(({ DptMenu }) => {
             switch (DptMenu) {
-              case "Add a departament": 
+              case "Add departament": 
                 console.clear(); 
                 addDptMenu(); 
                 break; 
@@ -47,7 +45,7 @@ function manageDptMenu () {
 }
 
 
-function addDptMenu () {
+export function addDptMenu () {
     inquirer
         .prompt ([
             {
@@ -71,4 +69,3 @@ function addDptMenu () {
         });
 }
 
-module.exports = { viewDepartmentsMenu, addDptMenu };

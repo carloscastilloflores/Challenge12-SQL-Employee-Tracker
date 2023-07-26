@@ -1,5 +1,6 @@
-const db = require("../config/connection");
-const cTable = require("console.gable");
+import db from '../config/connection.js';
+import cTable from 'console.table';
+
 
 class Employee {
     constructor(id, first_name, last_name, title, department, salary, manager) {
@@ -48,5 +49,4 @@ class Employee {
             });
     }
 }
-
-module.exports = Employee;
+export { Employee };

@@ -1,8 +1,8 @@
 import inquirer from 'inquirer';
 // const { viewDepartmentsMenu, addDptMenu } = require("./routes/department.js");
-import { viewDepartmentsMenu, addDptMenu  } from '../department.js';
-import { viewAllRolesMenu,addRoleMenu  } from '../role.js';
-import { viewAllEmployeesMenu,addEmployeeMenu,updateEmployeeRoleMenu  } from '../employee.js';
+import { viewDepartmentsMenu, addDptMenu  } from './department.js';
+import { viewAllRolesMenu,addRoleMenu  } from './role.js';
+import { viewAllEmployeesMenu, addEmployeeMenu, updateEmployeeRoleMenu  } from './employee.js';
 // const { viewAllRolesMenu, addRoleMenu } = require("./routes/role.js");
 // const {
 //   viewAllEmployeesMenu,
@@ -37,7 +37,7 @@ export function mainMenu() {
     default: "View All Employees",
   })
   .then (({menuSelect}) => {
-    switch ({MenuSelect}) {
+    switch ({menuSelect}) {
       case "View All Employees":
         console.clear();
         viewAllEmployeesMenu();

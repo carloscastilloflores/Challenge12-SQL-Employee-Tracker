@@ -1,5 +1,9 @@
-const db = require("../config/connection");
-const cTable = require("console.table");
+// const db = require("../config/connection");
+// const cTable = require("console.table");
+
+import db from '../config/connection.js';
+import cTable from 'console.table';
+
 
 class Role {
     constructor(id, title, department, salary) {
@@ -24,4 +28,4 @@ class Role {
     }
 }
 
-module.exports = Role; 
+export { Role } ; 

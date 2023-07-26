@@ -28,4 +28,4 @@ class Dpt {
     } 
 }
 
-export default Dpt ;
+export { Dpt };
