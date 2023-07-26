@@ -1,13 +1,17 @@
 import inquirer from 'inquirer';
-const { viewDepartmentsMenu, addDptMenu } = require("./routes/department.js");
-const { viewAllRolesMenu, addRoleMenu } = require("./routes/role.js");
-const {
-  viewAllEmployeesMenu,
-  addEmployeeMenu,
-  updateEmployeeRoleMenu,
-} = require("./routes/employee.js");
+// const { viewDepartmentsMenu, addDptMenu } = require("./routes/department.js");
+import { viewDepartmentsMenu, addDptMenu  } from '../department.js';
+import { viewAllRolesMenu,addRoleMenu  } from '../role.js';
+import { viewAllEmployeesMenu,addEmployeeMenu,updateEmployeeRoleMenu  } from '../employee.js';
+// const { viewAllRolesMenu, addRoleMenu } = require("./routes/role.js");
+// const {
+//   viewAllEmployeesMenu,
+//   addEmployeeMenu,
+//   updateEmployeeRoleMenu,
+// } = require("./routes/employee.js");
 
-inquirer
+export function mainMenu() {
+  inquirer
   .prompt(
     {
     type:'list',
@@ -68,10 +72,11 @@ inquirer
         break;
     }
   })
+}
 
   function exit() {
     console.clear();
     console.log("Shutting down... hit ctrl + c and use 'npm start' to reboot");
   }
   
-  exports.mainMenu = mainMenu;
+export default  mainMenu;

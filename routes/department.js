@@ -1,8 +1,11 @@
-const db = require("../config/connection");
-const cTable = require("console.table");
+// const db = require("../config/connection");
+// const cTable = require("console.table");
+import db from '../config/connection.js';
+import cTable from 'console.table';
 
-class Department {
-    constructor(id, dpt_name) {
+
+class Dpt {
+    constructor(id, dptm_name) {
         (this.id = id), (this.dptm_name = dptm_name);
     }
     getAll() {
@@ -16,8 +19,13 @@ class Department {
     }
     addDpt() {
         const sql = `INSERT INTO department (dptm_name) VALUES ("${this.dpt_name}")`;
-        return db.promise().query(sql);
+        return db
+            .promise()
+            .query(sql)
+            .then(([rows]) => {
+                return rows; 
+            })
     } 
 }
 
-module.exporrts = Dpt; 
+export default Dpt ;
