@@ -24,7 +24,7 @@ class Role {
     }
     addRole() {
         const sql = `INSERT INTO emp_role (title, salary, dpt_id) VALUES (?,?,?)` 
-        const params = [this.title, parseFloat(this.salary), this.dpt_id]
+        const params = [this.title, this.salary, this.dpt_id];
         return db.promise().query(sql, params);
     }
 }

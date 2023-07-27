@@ -1,5 +1,3 @@
-USE employees; -- Replace 'your_database_name' with your actual database name
-
 INSERT INTO department (dpt_name)
 VALUES
     ('Sales'),
@@ -17,13 +15,14 @@ VALUES
     ("Accountant", '125000', 3),
     ("Legal Team Lead", '250000', 4);
 
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
-    ('1', 'John', 'Doe', 1, NULL),
-    ('2', 'Mike', 'Chan', 1, 1), 
-    ('3', 'Ashley', 'Rodriguez', 2, NULL), 
-    ('4', 'Kevin', 'Tupik', 2, 2),
-    ('5', 'Kunal', 'Singh', 3, NULL),
-    ('6', 'Malia', 'Brown', 3, 3),
-    ('7', 'Sarah', 'Lourd', 4, NULL),
-    ('8', 'Tom', 'Allen', 4, 4);
+    ('John', 'Doe', 1, NULL),
+    ('Mike', 'Chan', 1, 1), 
+    ('Ashley', 'Rodriguez', 2, NULL), 
+    ('Kevin', 'Tupik', 2, 2),
+    ('Kunal', 'Singh', 3, NULL),
+    ('Malia', 'Brown', 3, 3),
+    ('Sarah', 'Lourd', 4, NULL),
+    ('Carlos', 'Castillo', 2, 1),
+    ('Tom', 'Allen', 4, 4);

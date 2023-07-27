@@ -110,7 +110,7 @@ export function manageEmployeeMenu() {
     try {
       const [roles, mgrs] = await Promise.all([role.getAll(), mgr.getAll()]);
       const employeeDetails = await promptEmployeeDetails(roles, mgrs);
-  
+
       const emp = new Employee(
         null,
         employeeDetails.firstname,
@@ -118,6 +118,7 @@ export function manageEmployeeMenu() {
         employeeDetails.roleId,
         employeeDetails.managerId
       );
+      console.log('Employee:', emp); 
       await emp.addEmployee();
       console.clear();
       viewAllEmployeesMenu();

@@ -46,27 +46,31 @@ export function manageDptMenu () {
 }
 
 
-export function addDptMenu () {
-    inquirer
-        .prompt ([
-            {
-                type: "text", 
-                name: "newDptName", 
-                message: "What is the name of the new department?", 
-                validate: (dptname) => {
-                    if (!dptname) {
-                        console.log("There was an error, enter a department name."); 
-                    }
-                    return true;
-                },
-             },
-        ])   
-        .then(({ newDptName }) => {
-            const dpt = new Dpt(null, newDptName); 
-            dpt.addDpt(); 
-            console.clear(); 
-            viewDepartmentMenu(); 
-            console.table("Added department \n");
-        });
-}
+export async function addDptMenu() {
+    try {
+      const { newDptName } = await inquirer.prompt([
+        {
+          type: "text",
+          name: "newDptName",
+          message: "What is the name of the new department?",
+          validate: (dptname) => {
+            if (!dptname) {
+              console.log("There was an error, enter a department name.");
+              return false; // Return false on validation failure
+            }
+            return true; // Return true on successful validation
+          },
+        },
+      ]);
+  
+      const dpt = new Dpt(null, newDptName);
+      await dpt.addDpt();
+  
+      console.clear();
+      viewDepartmentsMenu();
+      console.table("Added department \n");
+    } catch (error) {
+      console.error("Error adding department:", error);
+    }
+  }
 

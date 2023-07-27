@@ -19,14 +19,17 @@ class Dpt {
     }
 
     addDpt() {
-        const sql = `INSERT INTO department (dptm_name) VALUES ("${this.dpt_name}")`;
+        const sql = `INSERT INTO department (dpt_name) VALUES (?)`;
         return db
             .promise()
-            .query(sql)
-            .then(([rows]) => {
-                return rows; 
+            .query(sql, [this.dpt_name])
+            .then(() => {
+                console.log("Department added successfully!");
             })
-    } 
+            .catch((error) => {
+                console.error("Error adding department:", error);
+            });
+    }
 }
 
 export { Dpt };
