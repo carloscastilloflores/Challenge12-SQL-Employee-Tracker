@@ -9,5 +9,5 @@ CREATE TABLE employees_info (
     last_name VARCHAR(20),
     title VARCHAR(20), 
     department VARCHAR(20), 
-    salary DECIMAL(10,2)
+    salary DECIMAL NOT NULL
 );

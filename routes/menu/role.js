@@ -77,7 +77,7 @@ export async function promptRoleDetails(departments) {
 
   return {
     newRoleName,
-    roleSalary,
+    roleSalary: parseFloat(roleSalary),
     departmentId: newRoleDpt,
   };
 }
@@ -93,7 +93,7 @@ export async function addRoleMenu() {
     const roleDetails = await promptRoleDetails(departments);
     console.log('Role Details:', roleDetails); // Debug logging
 
-    const role = new Role(null, roleDetails.newRoleName, parseFloat(roleDetails.roleSalary), roleDetails.departmentId);
+    const role = new Role(null, roleDetails.newRoleName, roleDetails.roleSalary, roleDetails.departmentId);
     await role.addRole();
     console.clear();
     viewAllRolesMenu();
