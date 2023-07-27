@@ -1,4 +1,4 @@
-import db from '../config/connection.js';
+import { db } from '../server.js';
 import cTable from 'console.table';
 
 
@@ -17,16 +17,31 @@ class Employee {
         return db 
             .promise()
             .query(sql)
-            .THEN (([row]) => {
+            .then (([row]) => {
                 return row; 
+            })
+            .catch((error) => { // Add error handling
+              console.error('Error while fetching employees:', error);
+              throw error;
             });
     }
 
+    // getAll(callback) {
+    //   const sql = `SELECT * FROM employee`;
+    //   db.query(sql, (error, rows) => {
+    //     if (error) {
+    //       callback(error, null);
+    //     } else {
+    //       callback(null, rows);
+    //     }
+    //   });
+    // }
+
     addEmployee() {
-        const sql = `INSERT INTO employee (first_name, last_name, title, department, salary, manager) VALUES (?,?,?,?,?,?)`;
-        const params = [this.first_name, this.last_name, this.title, this.department, this.salary, this.manager,];
-        return db.promise().query(sql,params);
-    }
+      const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`;
+      const params = [this.first_name, this.last_name, this.role_id, this.manager_id];
+      return db.promise().query(sql, params);
+  }
 
     getEmployeeById() {
         const sql = `SELECT * FROM employee WHERE id = '${this.id}'`; 

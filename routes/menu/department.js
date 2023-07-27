@@ -1,10 +1,11 @@
 import { Dpt } from '../dpt.js';
 import inquirer from 'inquirer'; 
-import menu from './menu.js'
+import { mainMenu } from './menu.js';
 
 export function viewDepartmentsMenu () {
     let viewDepartmentMenu = new Dpt(); 
-    Dpt.getAll()
+    viewDepartmentMenu
+    .getAll()
     .then ((rows) => {
         console.log(`
         =================
@@ -36,7 +37,7 @@ export function manageDptMenu () {
                 break; 
               case "Nothing, take me to the Main Menu": 
                 console.clear(); 
-                menu.mainMenu(); 
+                mainMenu(); 
                 break;
 
             }

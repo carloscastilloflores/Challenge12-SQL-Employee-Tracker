@@ -44,7 +44,7 @@ db.connect((err) => {
   //   console.log(results);
   // });
 
-
+export { db };
 mainMenu();
 
 

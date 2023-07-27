@@ -1,7 +1,7 @@
 import { Role }  from '../role.js'
 import { Employee } from '../employee.js'
 import inquirer from 'inquirer'; 
-import menu from './menu.js'
+import { mainMenu } from './menu.js';
 
 export function viewAllEmployeesMenu() {
     const emp = new Employee();
@@ -42,79 +42,90 @@ export function manageEmployeeMenu() {
             break;
           case "Nothing, take me to the Main Menu":
             console.clear();
-            menu.mainMenu();
+            mainMenu();
             break;
         }
       });
   }
   
-export function addEmployeeMenu() {
+  async function promptEmployeeDetails(roles, mgrs) {
+    const allManagers = mgrs.map((m) => `${m.id} - ${m.first_name} ${m.last_name}`);
+    allManagers.push('None');
+  
+    const { firstname, lastname, roleid, manid } = await inquirer.prompt([
+      {
+        type: 'text',
+        name: 'firstname',
+        message: 'Enter first name.',
+        validate: (name) => {
+          if (!name) {
+            console.log('Please enter a first name for this employee!');
+            return false;
+          }
+          return true;
+        },
+      },
+      {
+        type: 'text',
+        name: 'lastname',
+        message: 'Enter last name.',
+        validate: (name) => {
+          if (!name) {
+            console.log('Please enter a last name for this employee!');
+            return false;
+          }
+          return true;
+        },
+      },
+      {
+        type: 'list',
+        name: 'roleid',
+        message: "What is the new employee's role?",
+        choices: roles.map((r) => `${r.id} - ${r.title}`),
+      },
+      {
+        type: 'list',
+        name: 'manid',
+        message: "Who is the new employee's manager?",
+        choices: allManagers,
+      },
+    ]);
+  
+    const truncRoleId = roleid.split(' ');
+    const truncManId = manid.split(' ');
+  
+    return {
+      firstname,
+      lastname,
+      roleId: truncRoleId[0],
+      managerId: truncManId[0] === 'None' ? null : truncManId[0],
+    };
+  }
+  
+  export async function addEmployeeMenu() {
     console.clear();
     const role = new Role();
     const mgr = new Employee();
-    role.getAll().then((roles) => {
-        mgr.getAll().then((mgrs) => {
-        let allManagers = mgrs.map((m) => {
-            return `${m.id} - ${m.first_name} ${m.last_name}`;
-        });
-        allManagers.push("None");
-        inquirer
-            .prompt([
-            {
-                type: "text",
-                name: "firstname",
-                message: "Enter first name.",
-                validate: (name) => {
-                if (!name) {
-                    console.log("Please enter a first name for this employee!");
-                }
-                return true;
-                },
-            },
-            {
-                type: "text",
-                name: "lastname",
-                message: "Enter last name.",
-                validate: (name) => {
-                if (!name) {
-                    console.log("Please enter a last name for this employee!");
-                }
-                return true;
-                },
-            },
-            {
-                type: "list",
-                name: "roleid",
-                message: "What is the new employee's role?",
-                choices: roles.map((r) => {
-                return `${r.id} - ${r.title}`;
-                }),
-            },
-            {
-                type: "list",
-                name: "manid",
-                message: "Who is the new employee's manager?",
-                choices: allManagers,
-            },
-            ])
-            .then(({ firstname, lastname, roleid, manid }) => {
-            let truncRoleId = roleid.split(" ");
-            let truncManId = manid.split(" ");
-            const emp = new Employee(
-                null,
-                firstname,
-                lastname,
-                truncRoleId[0],
-                truncManId[0]
-            );
-            emp.addEmployee();
-            console.clear();
-            viewAllEmployeesMenu();
-            console.table("Added employee \n");
-            });
-        });
-    });
-}
+  
+    try {
+      const [roles, mgrs] = await Promise.all([role.getAll(), mgr.getAll()]);
+      const employeeDetails = await promptEmployeeDetails(roles, mgrs);
+  
+      const emp = new Employee(
+        null,
+        employeeDetails.firstname,
+        employeeDetails.lastname,
+        employeeDetails.roleId,
+        employeeDetails.managerId
+      );
+      await emp.addEmployee();
+      console.clear();
+      viewAllEmployeesMenu();
+      console.table('Added employee \n');
+    } catch (error) {
+      console.error('Error adding employee:', error);
+    }
+  }
   
 export function updateEmployeeRoleMenu() {
     console.clear();

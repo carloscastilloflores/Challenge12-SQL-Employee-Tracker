@@ -1,7 +1,7 @@
 // const db = require("../config/connection");
 // const cTable = require("console.table");
 
-import db from '../config/connection.js';
+import { db } from '../server.js';
 import cTable from 'console.table';
 
 
@@ -14,17 +14,18 @@ class Role {
     }
     
     getAll() {
-        const sql = `SELECT * FROM title`; 
+        const sql = `SELECT * FROM emp_role`; 
         return db 
         .promise()
-        .query(sql, params)
+        .query(sql)
         .then (([rows]) => {
             return rows;
         });
     }
     addRole() {
-        const sql = `INSERT INTO emp_role (title, salary, dpt_id) VALUES ("${this.title}", "${this.salary}", "${this.dpt_id}")`;
-        return db.promise().query(sql);
+        const sql = `INSERT INTO emp_role (title, salary, dpt_id) VALUES (?,?,?)` 
+        const params = [this.title, parseFloat(this.salary), this.dpt_id]
+        return db.promise().query(sql, params);
     }
 }
 

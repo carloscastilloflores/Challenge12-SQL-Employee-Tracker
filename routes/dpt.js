@@ -1,6 +1,6 @@
 // const db = require("../config/connection");
 // const cTable = require("console.table");
-import db from '../config/connection.js';
+import { db } from '../server.js';
 import cTable from 'console.table';
 
 
@@ -11,12 +11,13 @@ class Dpt {
     getAll() {
         const sql = `SELECT * FROM department`;
         return db   
-            .promise
+            .promise()
             .query(sql)
             .then (([rows]) => {
                 return rows;
             });
     }
+
     addDpt() {
         const sql = `INSERT INTO department (dptm_name) VALUES ("${this.dpt_name}")`;
         return db
